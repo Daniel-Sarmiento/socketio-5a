@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js"></script> -->
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
+    <script>
+        const socket = io('http://localhost:3000');
+
+        // cuando se conecta
+        socket.on("connect", () => {
+            console.log("socket conectado:", socket.id);
+            console.log("estatus:", socket.connected);
+        })
+
+        // cuando se desconecta
+        socket.on("disconnect", () => {
+            console.log("socket desconectado:", socket.id);
+            console.log("estatus:", socket.connected);
+        });
+
+        // cuando se intenta reconectar
+        socket.io.on("reconnect_attempt", () => {
+            console.log("estoy intentando reconectarme");
+        });
+
+        // cuando en un intento de conexión no se puede conectar
+        socket.on("connect_error", () => {
+            console.log("no pude conectarme");
+        });
+
+         // cuando logra reconectarse
+         socket.io.on("reconnect", () => {
+            console.log("me he vuelto a conectar");
+        });
+
+        // cuando se emite el evento al socket
+        socket.on("evento-presonalizado", data => {
+            console.log(data);
+        });
+
+        /* setInterval(() => {
+            console.log("enviando posición")
+            socket.volatile.emit("posicion", {x: 1, y: 2});
+        },2000) */
+
+        /* 
+        On, Once y Off
+        On → Se usa para detectar(o escuchar) un evento todas las veces que se emita.
+        Once → Se usa para detectar(o escuchar) un evento una sola vez. Sin importar si el evento se emite varias veces.
+        Off → Se usa para dejar de escuchar un evento, sin importar que este se siga emitiendo.
+💡           El listener del evento no debe ser una función anónima, sino una función nombrada. 
+        */
+
+    </script>
+
+    <script>
+
+    </script>
+</body>
+</html>
